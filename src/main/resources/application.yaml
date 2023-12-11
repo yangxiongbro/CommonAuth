@@ -1,0 +1,13 @@
+server:
+  port: 9009
+  servlet:
+    context-path: /common/auth
+spring:
+  application:
+    name: CommonAuth
+  profiles:
+    active: dev
+mybatis-plus:
+  mapper-location: classpath*:mapper/**/*.xml
+logging:
+  config: classpath:logback-spring.xml
