@@ -1,6 +1,7 @@
 package com.common.auth.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
-    @GetMapping
-    public String login(){
-        return "login!";
+    @PostMapping("/success_forward")
+    public String successForward(){
+        return "successForward!";
+    }
+
+    @PostMapping("/failure_forward")
+    public String failureForward(){
+        return "failureForward!";
     }
 }
