@@ -1,5 +1,7 @@
 package com.common.auth.config;
 
+import com.common.auth.handle.MyAuthenticationFailureHandler;
+import com.common.auth.handle.MyAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,9 +36,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 必须和表单提交的接口一样，会去执行自定义登灵逻辑
                 .loginProcessingUrl("/login")
                 // 登录成功后跳转的页面，POST 请求
-                .successForwardUrl("/login/success_forward")
+//                .successForwardUrl("/login/success_forward")
+                // 自定义登陆成功处理器
+                .successHandler(new MyAuthenticationSuccessHandler("/common/auth/main.html"))
                 // 登录失败后跳转的页面，POST 请求
-                .failureForwardUrl("/login/failure_forward");
+//                .failureForwardUrl("/login/failure_forward");
+                // 自定义登录失败处理器
+                .failureHandler(new MyAuthenticationFailureHandler("/common/auth/error.html"));
 
         // 授权
         http.authorizeRequests()
@@ -44,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login.html").permitAll()
                 // 放行 /error.html，不需要认证
                 .antMatchers("/error.html").permitAll()
-                // 所有请求都必须认证才能访问，必须登录
+                // 所有请求都必须认证才能访问，必须登录，anyRequest 要放在最后
                 .anyRequest().authenticated();
 
         // 关闭 csrf 防护

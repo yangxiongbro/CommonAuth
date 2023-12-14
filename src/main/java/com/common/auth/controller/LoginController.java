@@ -1,9 +1,7 @@
 package com.common.auth.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <b><code>LoginController</code></b>
@@ -15,17 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yang xiong
  * @since CommonAuth 1.0
  */
-@RestController
+@Controller
 @RequestMapping("/login")
 public class LoginController {
 
     @PostMapping("/success_forward")
+//    @ResponseBody
     public String successForward(){
-        return "successForward!";
+        return "redirect:/main.html";
     }
 
     @PostMapping("/failure_forward")
+//    @ResponseBody
     public String failureForward(){
-        return "failureForward!";
+        return "redirect:/error.html";
     }
 }
