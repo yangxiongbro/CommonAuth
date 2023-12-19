@@ -1,5 +1,7 @@
 package com.common.auth.controller;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +19,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class LoginController {
 
+    // @Secured("ROLE_abc")
+    // PreAuthorize 允许角色以 ROLE_ 开头，也可以不以 ROLE_ 开头，但是配置类不允许以 ROLE_ 开头
+    // @PreAuthorize("ROLE_abc")
     @PostMapping("/success_forward")
-//    @ResponseBody
+    // @ResponseBody
     public String successForward(){
         return "redirect:/main.html";
     }
 
     @PostMapping("/failure_forward")
-//    @ResponseBody
+    // @ResponseBody
     public String failureForward(){
         return "redirect:/error.html";
     }
