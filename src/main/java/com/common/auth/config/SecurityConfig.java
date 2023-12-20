@@ -3,13 +3,12 @@ package com.common.auth.config;
 import com.common.auth.handle.MyAuthenticationFailureHandler;
 import com.common.auth.handle.MyAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * <b><code>SecurityConfig</code></b>
@@ -26,6 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
+
+    @Autowired
+    private PersistentTokenRepository persistentTokenRepository;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,18 +63,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/error.html").permitAll()
                 .antMatchers("/main.html").hasIpAddress("127.0.0.1")
                 // 所有请求都必须认证才能访问，必须登录，anyRequest 要放在最后
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+        ;
 
         // 异常处理
         http.exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler);
+                .accessDeniedHandler(accessDeniedHandler)
+        ;
+
+        // 记住我
+        http.rememberMe()
+                // 数据源
+                .tokenRepository(persistentTokenRepository)
+                // 参数
+                // .rememberMeParameter()
+                // 过期时间 60s(默认两周)
+                 .tokenValiditySeconds(60)
+                // 自定义登录逻辑
+                 .userDetailsService(userDetailsService)
+        ;
 
         // 关闭 csrf 防护
         http.csrf().disable();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
     }
 }
