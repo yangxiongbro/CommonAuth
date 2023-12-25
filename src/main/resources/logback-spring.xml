@@ -56,7 +56,7 @@
     <!-- 2.1 level为 DEBUG 日志，时间滚动输出 -->
     <appender name="FULL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文档的路径及文档名 -->
-        <file>${logging.path}/Order-current.log</file>
+        <file>${logging.path}/Common-Auth-current.log</file>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
             <charset>UTF-8</charset>
@@ -64,7 +64,7 @@
         <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志归档 -->
-            <fileNamePattern>${logging.path}/Order-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <fileNamePattern>${logging.path}/Common-Auth-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>1GB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
