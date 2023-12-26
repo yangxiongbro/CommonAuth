@@ -37,7 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 表单提交
         http.formLogin()
                 // 自定义登灵页面
-                .loginPage("/login.html")
+                // .loginPage("/login.html")
+                 .loginPage("/login/loginWithCsrf")
                 // UsernamePasswordAuthenticationFilter
                 // 自定义表单账号参数名
                 // .usernameParameter("username")
@@ -48,17 +49,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 登录成功后跳转的页面，POST 请求
                 .successForwardUrl("/login/success_forward")
                 // 自定义登陆成功处理器
-//                .successHandler(new MyAuthenticationSuccessHandler("/common/auth/main.html"))
+                // .successHandler(new MyAuthenticationSuccessHandler("/common/auth/main.html"))
                 // 登录失败后跳转的页面，POST 请求
                 .failureForwardUrl("/login/failure_forward");
                 // 自定义登录失败处理器
-//                .failureHandler(new MyAuthenticationFailureHandler("/common/auth/error.html"))
+        // .failureHandler(new MyAuthenticationFailureHandler("/common/auth/error.html"))
         ;
 
         // 授权
         http.authorizeRequests()
                 // 放行 /login.html，不需要认证
-                .antMatchers("/login.html").permitAll()
+                // .antMatchers("/login.html").permitAll()
+                .antMatchers("/login/loginWithCsrf").permitAll()
                 // 放行 /error.html，不需要认证
                 .antMatchers("/error.html").permitAll()
                 .antMatchers("/main.html").hasIpAddress("127.0.0.1")
@@ -92,6 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
 
         // 关闭 csrf 防护
-        http.csrf().disable();
+        // http.csrf().disable();
     }
 }

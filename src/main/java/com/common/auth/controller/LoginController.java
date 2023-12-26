@@ -33,4 +33,9 @@ public class LoginController {
     public String failureForward(){
         return "redirect:/error.html";
     }
+
+    @GetMapping("/loginWithCsrf")
+    public String loginWithCsrf(){
+        return "loginWithCsrf";
+    }
 }
