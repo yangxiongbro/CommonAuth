@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
  * @author yang xiong
  * @since CommonAuth 1.0
  */
+//@EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -63,6 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login/loginWithCsrf").permitAll()
                 // 放行 /error.html，不需要认证
                 .antMatchers("/error.html").permitAll()
+                // oauth 端点
+                .antMatchers("/oauth/**").permitAll()
                 .antMatchers("/main.html").hasIpAddress("127.0.0.1")
                 // 所有请求都必须认证才能访问，必须登录，anyRequest 要放在最后
                 .anyRequest().authenticated()
