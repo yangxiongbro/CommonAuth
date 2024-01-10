@@ -13,3 +13,7 @@ spring:
       content-type: text/html
     # 启用模板缓存（开发时建议关闭）
     cache: false
+  redis:
+    host: 192.168.31.101
+    port: 6379
+    password: Senna&redis@P1
